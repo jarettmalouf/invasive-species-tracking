@@ -1,0 +1,26 @@
+ESTIMATE of time to complete assignment: 40 hours
+
+      Time     Time
+Date  Started  Spent Work completed
+----  -------  ----  --------------
+11/11 7:00pm   6:00  read through assignment, copied over files, began work on elementary kdtree functions
+
+11/12 8:00pm   4:00  began work planning out Blotto, creating Makefile with smap_array.c
+
+11/13 8:30pm   4:00  worked mainly on my build/create functions, drafted for_each & destroy, got stuck on problem with add
+
+11/14 7:30pm   10:00 fixed my add method, worked my way through nearest neighbor algorithm, not with perfect success
+
+11/15 2:30pm   1:00  all of my run trials were killing upon testing, fixed that and discovered where the real errors were –– to be addressed later
+
+11/18 6:30pm   5:00  fixed valgrind errors, worked on repairing nearest neighbor errors, still struggling with Unit tests 10, 14
+
+11/19 7:00pm   3:00  fixed case 10 by adding an if-clause to account for points added to empty set; added code to maximize efficiency in nearest_neighbor, using mergeSort only for the first entry and a O(n) parse for the subsequents
+
+11/20 12:00pm  1:00  maximizing efficiency technique works for random cases of sizes up to 500,000, but cannot handle 1,000,000
+               ----
+               34:00 TOTAL time spent
+
+I discussed my solution with Leslie Espinoza, Jun Park, and Josh Ip.
+
+THe main difficulties I ran into with this pset were conceptual. I had a lot of trouble early on wrapping my head around the rotation aspect of a kd-tree and then subsequently a lot more trouble understanding how to code the algorithm for nearest neighbor. Even still, once I had the concepts down, I was not in the clear. I was having a lot of trouble maximizing the efficiency of my nearest neighbor method, and so I don't think it will pass the tests with large case sizes in the proper O(n) time. I tried to insert a mechanism that would reduce the time spent by avoiding mergesort and plucking X-sorted and Y-sorted arrays manually, using one another as respective references, but it did not end up working for reasons unclear to myself and multiple ULAs. C'est la vie. 

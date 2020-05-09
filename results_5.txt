@@ -1,0 +1,179 @@
+
+Final test script for Unit (12/13/2019)
+
+***** Checking for warning messages *****
+Making -B ./Unit
+gcc -std=c99 -pedantic -Wall -g3   -c -o kdtree.o kdtree.c
+gcc -std=c99 -pedantic -Wall -g3   -c -o location.o location.c
+gcc -std=c99 -pedantic -Wall -g3   -c -o kdtree_unit.o kdtree_unit.c
+gcc -o Unit -std=c99 -pedantic -Wall -g3 kdtree.o location.o kdtree_unit.o -lm
+
+Each test is either passed or failed; there is no partial credit.
+
+
+           kdtree_add and kdtree_contains (25 points)
+PASSED  001. kdtree_add and kdtree_destroy
+PASSED  002. kdtree_add once
+PASSED  003. kdtree_add multiple times
+PASSED  004. kdtree_contains for one-item set
+PASSED  005. kdtree_contains for empty set
+PASSED  006. kdtree_contains for larger set
+PASSED  007. kdtree_create copies points
+PASSED  008. kdtree_add copies points
+PASSED  009. 1st Example, add one by one
+PASSED  010. 2nd Example, add one by one
+
+           kdtree_add and kdtree_contains (25 points): 25 points
+
+           Valgrind: kdtree_add and kdtree_contains (5 points)
+PASSED  011. kdtree_add and kdtree_destroy
+PASSED  012. kdtree_add once
+PASSED  013. kdtree_contains for one-item set
+PASSED  014. kdtree_add multiple times
+PASSED  015. kdtree_contains for larger set
+
+           Valgrind: kdtree_add and kdtree_contains (5 points): 5 points
+
+           Efficiency: kdtree_add (4 points)
+1c1,5
+< PASS
+---
+> run '/usr/bin/valgrind --tool=cachegrind --trace-children=yes --log-file=valgrind.out ./Unit 54 20000 1': cputime limit exceeded
+> run '/usr/bin/valgrind --tool=cachegrind --trace-children=yes --log-file=valgrind.out ./Unit 54 200000 1': cputime limit exceeded
+> FAIL t016: -loglinear 2000 725928588 33099.711300>2500.000000
+> FAIL t016: -loglinear 20000 19792318132 69263.425824>2500.000000
+> FAIL t016: -loglinear 200000 18988515323 5391.511357>2500.000000
+Error: STDOUT differs from expected
+FAILED  016. kdtree_add random efficiency
+
+           Efficiency: kdtree_add (4 points): 0 points
+
+           kdtree_for_each (8 points)
+PASSED  017. kdtree_for_each for empty set
+PASSED  018. kdtree_for_each for non-empty set
+
+           kdtree_for_each (8 points): 8 points
+
+           Valgrind: kdtree_for_each (2 points)
+PASSED  019. kdtree_for_each for empty set
+PASSED  020. kdtree_for_each for non-empty subset
+
+           Valgrind: kdtree_for_each (2 points): 2 points
+
+           kdtree_create (14 points)
+PASSED  021. kdtree_create for small set
+PASSED  022. kdtree_create with random points in unit square
+PASSED  023. kdtree_create with random points in unit interval on y-axis
+PASSED  024. kdtree_create with random points in unit interval on x-axis
+PASSED  025. kdtree_add after kdtree_build
+PASSED  026. 1st Example, build
+PASSED  027. 2nd Example, build
+PASSED  028. kdtree_create with duplicates
+
+           kdtree_create (14 points): 14 points
+
+           Valgrind: kdtree_create (5 points)
+PASSED  029. kdtree_create for small set
+PASSED  030. kdtree_create with random points in unit square
+PASSED  031. kdtree_create with random points in unit interval on y-axis
+PASSED  032. kdtree_create with random points in unit interval on x-axis
+PASSED  033. kdtree_add after kdtree_build
+0a1,6
+> ==2349== 336 (16 direct, 320 indirect) bytes in 1 blocks are definitely lost in loss record 13 of 13
+> ==2349==    at 0x483AB1A: calloc (vg_replace_malloc.c:762)
+> ==2349==    by 0x401233: kdtree_create (kdtree.c:82)
+> ==2349==    by 0x404B74: test_build_duplicates (kdtree_unit.c:650)
+> ==2349==    by 0x403CAD: main (kdtree_unit.c:280)
+> ==2349== 
+Error: STDOUT differs from expected
+FAILED  034. Build with duplicates
+
+           Valgrind: kdtree_create (5 points): 4 points
+
+           Efficiency: kdtree_create (8 points)
+1c1,5
+< PASS
+---
+> run '/usr/bin/valgrind --tool=cachegrind --trace-children=yes --log-file=valgrind.out ./Unit 53 20000 1': cputime limit exceeded
+> run '/usr/bin/valgrind --tool=cachegrind --trace-children=yes --log-file=valgrind.out ./Unit 53 200000 1': cputime limit exceeded
+> FAIL t035: -loglinear 2000 774773373 35326.856378>2600.000000
+> FAIL t035: -loglinear 20000 20134211310 70459.884603>2600.000000
+> FAIL t035: -loglinear 200000 21192934682 6017.424011>2600.000000
+Error: STDOUT differs from expected
+FAILED  035. kdtree_create sorted
+NOTRUN  036. kdtree_create sorted n log^2 n check
+NOTRUN  037. kdtree_create random, unit square
+NOTRUN  038. kdtree_create random, unit interval on y-axis
+NOTRUN  039. kdtree_create random, unit interval on x-axis
+
+           Efficiency: kdtree_create (8 points): 0 points
+
+           kdtree_nearest_neighbor (16 points)
+PASSED  040. kdtree_nearest_neighbor for empty set
+PASSED  041. kdtree_nearest_neighbor for point in set
+PASSED  042. kdtree_nearest_neighbor for point not in set
+PASSED  043. kdtree_nearest_neighbor for point not in set (swapped coordinates)
+PASSED  044. kdtree_nearest_neighbor for small balanced tree
+1c1
+< PASSED
+---
+> run './Unit 14': cputime limit exceeded
+Error: STDOUT differs from expected
+FAILED  045. kdtree_nearest_neighbor for large random tree
+PASSED  046. 1st Example, nearest to (4,5)
+PASSED  047. 2nd Example, nearest to (4,5)
+PASSED  048. random points on x-axis
+PASSED  049. random points on y-axis
+
+           kdtree_nearest_neighbor (16 points): 14 points
+
+           Valgrind: kdtree_nearest_neighbor (3 points)
+PASSED  050. kdtree_nearest_neighbor for empty set
+PASSED  051. kdtree_nearest_neighbor for point in set
+PASSED  052. kdtree_nearest_neighbor for point not in set
+PASSED  053. kdtree_nearest_neighbor for small balanced tree
+
+           Valgrind: kdtree_nearest_neighbor (3 points): 3 points
+
+           Efficiency: kdtree_nearest_neighbor (8 points)
+1c1,5
+< PASS
+---
+> run '/usr/bin/valgrind --tool=cachegrind --trace-children=yes --log-file=valgrind.out ./Unit 55 200000 0': cputime limit exceeded
+> run '/usr/bin/valgrind --tool=cachegrind --trace-children=yes --log-file=valgrind.out ./Unit 55 200000 1': cputime limit exceeded
+> FAIL t054: -log 2000 905616 82585.611434>10000.000000
+> FAIL t054: -log 20000 8634505 604330.824321>10000.000000
+> FAIL t054: -log 200000 98880150 5615114.638118>10000.000000
+Error: STDOUT differs from expected
+FAILED  054. kdtree_nearest_neighbor
+
+           Efficiency: kdtree_nearest_neighbor (8 points): 0 points
+
+           Out of Memory (2 points)
+0a1
+> run './Unit 27': segmentation fault
+Error: STDOUT differs from expected
+FAILED  055. kdtree_create
+0a1
+> run './Unit 28': segmentation fault
+Error: STDOUT differs from expected
+FAILED  056. kdtree_add
+
+           Out of Memory (2 points): 0 points
+
+               Deductions for Violating Specification (0 => no violation)
+
+End of Public Script
+
+ 75 points Total for Unit
+
+           Possible Deductions (assessed later as appropriate)
+               -10 Deficient style (comments, identifiers, formatting, ...)
+                -5 Does not make
+                -5 Makefile missing
+                -5 Makefile incorrect
+                -1 Log file incorrectly named
+                -1 Log file lacks estimated time
+                -1 Log file lacks total time
+                -1 Log file lacks statement of major difficulties
+
